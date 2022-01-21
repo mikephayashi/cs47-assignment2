@@ -1,5 +1,5 @@
 import AppLoading from "expo-app-loading";
-import { StyleSheet, Text, View, StatusBar, Image, ImageBackground, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
 import { useFonts } from "expo-font";
 import { Themes } from "./assets/Themes";
 import Tab from "./components/Tab";
@@ -17,7 +17,7 @@ export default function App() {
   /* insert your code here */
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.navContainer}>
         <Image
           style={styles.navIcon}
@@ -31,24 +31,14 @@ export default function App() {
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.profilePicContainer}>
-          <ImageBackground
+          <Image
             style={styles.profilePic}
-            resizeMode="cover"
+            resizeMode="contain"
             source={require("./assets/Profiles/mtl.jpg")}
-          >
-            <Text style={{...styles.profileText, position: 'absolute', top: 10}}>MTL</Text>
-            <Text style={{...styles.profileText, position: 'absolute', bottom: 10}}>2 miles away</Text>
-          </ImageBackground>
+          />
         </View>
         <View style={styles.audioContainer}>
-          <Text
-            style={{
-              fontSize: 32,
-              fontFamily: "Sydney",
-              marginLeft: 20,
-              marginTop: 20,
-            }}
-          >
+          <Text style={{ fontSize: 32, fontFamily: "Sydney" }}>
             My hottest take
           </Text>
           <View style={styles.audioIconsContainer}>
@@ -70,22 +60,22 @@ export default function App() {
         <Tab title="Matches" imgPath="../assets/Icons/heart_light.png" />
         <Tab title="DMs" imgPath="../assets/Icons/messages_light.png" />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "rgb(230, 230, 230)",
+    backgroundColor: "#fff",
     alignItems: "stretch",
     justifyContent: "center",
   },
   navContainer: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    height: Platform.OS === 'ios' ? 41 : 54
   },
   contentContainer: {
     flex: 5,
@@ -95,17 +85,17 @@ const styles = StyleSheet.create({
   },
   tabsContainer: {
     flex: 1,
+    backgroundColor: "rgba(0, 0, 255, 1)",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
-    backgroundColor: "rgb(0, 0, 0)",
-    height: 500
   },
   navIcon: {
     width: 50,
     height: 50,
   },
   profilePicContainer: {
+    backgroundColor: "rgb(100, 0, 0)",
     flexDirection: "column",
     alignItems: "center",
     marginLeft: 40,
@@ -113,42 +103,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     flex: 2,
-    shadowColor: "#222",
-    shadowOffset: { width: 3, height: 3 },
-    shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 5,
-    borderRadius: 25,
   },
   profilePic: {
     height: "100%",
     width: "100%",
-    borderRadius: 25,
-    overflow: 'hidden'
   },
   audioContainer: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "rgb(100, 100, 100)",
     marginLeft: 40,
     marginRight: 40,
     marginTop: 10,
     marginBottom: 40,
-    borderRadius: 40,
-    shadowColor: "#222",
-    shadowOffset: { width: 1, height: 1 },
-    shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 5,
   },
   audioIconsContainer: {
     flexDirection: "row",
     alignItems: "center",
-    margin: 10,
   },
-  profileText: {
-    color: '#fff',
-    left: 10,
-    fontFamily: 'Sydney',
-    fontSize: 16,
-  }
 });

@@ -1,8 +1,9 @@
 import AppLoading from "expo-app-loading";
-import { StyleSheet, Text, View, StatusBar, Image, ImageBackground, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, StatusBar, Image } from "react-native";
 import { useFonts } from "expo-font";
 import { Themes } from "./assets/Themes";
 import Tab from "./components/Tab";
+import { reportLogBoxError } from "react-native/Libraries/LogBox/Data/LogBoxData";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,7 +18,7 @@ export default function App() {
   /* insert your code here */
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.navContainer}>
         <Image
           style={styles.navIcon}
@@ -31,24 +32,36 @@ export default function App() {
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.profilePicContainer}>
-          <ImageBackground
-            style={styles.profilePic}
-            resizeMode="cover"
-            source={require("./assets/Profiles/mtl.jpg")}
-          >
-            <Text style={{...styles.profileText, position: 'absolute', top: 10}}>MTL</Text>
-            <Text style={{...styles.profileText, position: 'absolute', bottom: 10}}>2 miles away</Text>
-          </ImageBackground>
-        </View>
-        <View style={styles.audioContainer}>
-          <Text
+          <View style={{ zIndex: 0, elevation: 0 ,width: '100%', height: '100%'}}>
+            <Image
+              style={styles.profilePic}
+              resizeMode="contain"
+              source={require("./assets/Profiles/mtl.jpg")}
+            />
+          </View>
+          <View
             style={{
-              fontSize: 32,
-              fontFamily: "Sydney",
-              marginLeft: 20,
-              marginTop: 20,
+              position: "absolute",
+              marginTop: 10,
+              zIndex: 1,
+              elevation: 1,
             }}
           >
+            <Text>MTL</Text>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              marginBottom: 0,
+              zIndex: 1,
+              elevation: 1,
+            }}
+          >
+            <Text>2 miles away</Text>
+          </View>
+        </View>
+        <View style={styles.audioContainer}>
+          <Text style={{ fontSize: 32, fontFamily: "Sydney", marginLeft: 20, marginTop: 20}}>
             My hottest take
           </Text>
           <View style={styles.audioIconsContainer}>
@@ -70,7 +83,7 @@ export default function App() {
         <Tab title="Matches" imgPath="../assets/Icons/heart_light.png" />
         <Tab title="DMs" imgPath="../assets/Icons/messages_light.png" />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -82,10 +95,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   navContainer: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    height: Platform.OS === 'ios' ? 41 : 54
   },
   contentContainer: {
     flex: 5,
@@ -99,7 +112,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-around",
     backgroundColor: "rgb(0, 0, 0)",
-    height: 500
   },
   navIcon: {
     width: 50,
@@ -113,18 +125,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 10,
     flex: 2,
-    shadowColor: "#222",
-    shadowOffset: { width: 3, height: 3 },
+    shadowColor: '#222',
+    shadowOffset: { width: 3, height: 1 },
     shadowOpacity: 1,
-    shadowRadius: 10,
-    elevation: 5,
-    borderRadius: 25,
+    shadowRadius: 10,  
+    elevation: 5
   },
   profilePic: {
     height: "100%",
     width: "100%",
     borderRadius: 25,
-    overflow: 'hidden'
   },
   audioContainer: {
     flex: 1,
@@ -134,21 +144,15 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 40,
     borderRadius: 40,
-    shadowColor: "#222",
+    shadowColor: '#222',
     shadowOffset: { width: 1, height: 1 },
     shadowOpacity: 1,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowRadius: 5,  
+    elevation: 5
   },
   audioIconsContainer: {
     flexDirection: "row",
     alignItems: "center",
     margin: 10,
   },
-  profileText: {
-    color: '#fff',
-    left: 10,
-    fontFamily: 'Sydney',
-    fontSize: 16,
-  }
 });

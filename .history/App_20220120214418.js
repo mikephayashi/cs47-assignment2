@@ -1,8 +1,9 @@
 import AppLoading from "expo-app-loading";
-import { StyleSheet, Text, View, StatusBar, Image, ImageBackground, SafeAreaView } from "react-native";
+import { StyleSheet, Text, View, StatusBar, Image, ImageBackground } from "react-native";
 import { useFonts } from "expo-font";
 import { Themes } from "./assets/Themes";
 import Tab from "./components/Tab";
+import { reportLogBoxError } from "react-native/Libraries/LogBox/Data/LogBoxData";
 
 export default function App() {
   let [fontsLoaded] = useFonts({
@@ -17,7 +18,7 @@ export default function App() {
   /* insert your code here */
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.navContainer}>
         <Image
           style={styles.navIcon}
@@ -70,7 +71,7 @@ export default function App() {
         <Tab title="Matches" imgPath="../assets/Icons/heart_light.png" />
         <Tab title="DMs" imgPath="../assets/Icons/messages_light.png" />
       </View>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -82,10 +83,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   navContainer: {
+    flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-evenly",
-    height: Platform.OS === 'ios' ? 41 : 54
   },
   contentContainer: {
     flex: 5,
@@ -94,12 +95,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   tabsContainer: {
-    flex: 1,
+    // flex: 1,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
     backgroundColor: "rgb(0, 0, 0)",
-    height: 500
+    // height: Platform.OS === 'ios' ? 41 : 54
+    height: Platform.OS === 'ios' ? 41 : 500
   },
   navIcon: {
     width: 50,
